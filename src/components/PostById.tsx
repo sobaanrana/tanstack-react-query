@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
+import { useParams, useSearchParams } from "react-router-dom";
 
-const fetchPosts = async (id: number) => {
+const fetchPosts = async (id: string) => {
   const response = await fetch(
     `https://jsonplaceholder.typicode.com/posts/${id}`
   );
@@ -8,7 +9,9 @@ const fetchPosts = async (id: number) => {
   return response.json();
 };
 
-export const PostById = ({ id }: { id: number }) => {
+const PostById = () => {
+  const { id } = useParams<{ id: string }>();
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["posts", id], // Include id for caching
     queryFn: () => fetchPosts(id),
@@ -20,3 +23,5 @@ export const PostById = ({ id }: { id: number }) => {
 
   return <> {data.title}</>;
 };
+
+export default PostById;

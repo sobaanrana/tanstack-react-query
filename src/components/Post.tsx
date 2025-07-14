@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import type { PostType } from "../types";
+import { Link, Outlet } from "react-router-dom";
 
 const fetchPosts = async (): Promise<PostType[]> => {
   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
@@ -22,11 +23,13 @@ const Post = () => {
 
   return (
     <div>
+      <Outlet />
+      {/* This Outlet will render the child routes, such as CreatePost */}
       {data?.map((post, index) => (
-        <div key={index}>
+        <Link to={`/post/${post.id}`} key={index}>
           <h2>{post.title}</h2>
           <p>{post.body}</p>
-        </div>
+        </Link>
       ))}
     </div>
   );

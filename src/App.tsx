@@ -4,14 +4,31 @@ import Post from "./components/Post";
 import PostById from "./components/PostById";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Post />,
+    // loader: postsLoader, // Prefetches data
+    children: [
+      {
+        path: "create",
+        element: <CreatePost />,
+        // action: createPostAction, // Handles form posts
+      },
+    ],
+  },
+  {
+    path: "post/:id",
+    element: <PostById />,
+    // loader: postsLoader, // Prefetches data
+  },
+
+  // { path: "*", element: <NotFound /> },
+]);
+
 function App() {
-  return (
-    <>
-      <CreatePost />
-      {/* <Post /> */}
-      <PostById id={3} />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { PostType } from "../types";
+import { useNavigate } from "react-router-dom";
 
 const createPost = async (newPost: Omit<PostType, "id">): Promise<PostType> => {
   const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
@@ -45,11 +46,14 @@ const CreatePost = () => {
     },
   });
 
+  //   const navigate = useNavigate();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutation.mutate({ title, body });
     setTitle("");
     setBody("");
+    // navigate("/");
   };
 
   return (
