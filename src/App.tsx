@@ -1,5 +1,6 @@
 import "./App.css";
 import CreatePost from "./components/CreatePost";
+import NotFound from "./components/NotFound";
 import Post from "./components/Post";
 import PostById from "./components/PostById";
 
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
     // loader: postsLoader, // Prefetches data
   },
 
-  // { path: "*", element: <NotFound /> },
+  { path: "*", element: <NotFound /> },
 ]);
 
 function App() {
