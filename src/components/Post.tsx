@@ -1,13 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
+import type { PostType } from "../types";
 
-interface PostType {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-}
-
-const getPosts = async (): Promise<PostType[]> => {
+const fetchPosts = async (): Promise<PostType[]> => {
   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
   if (!res.ok) {
     throw new Error("Error fetching data");
@@ -18,7 +12,7 @@ const getPosts = async (): Promise<PostType[]> => {
 const Post = () => {
   const { data, isLoading, error } = useQuery<PostType[]>({
     queryKey: ["posts"],
-    queryFn: getPosts,
+    queryFn: fetchPosts,
     staleTime: 5000, // 5 seconds
   });
 
@@ -28,8 +22,8 @@ const Post = () => {
 
   return (
     <div>
-      {data?.map((post) => (
-        <div>
+      {data?.map((post, index) => (
+        <div key={index}>
           <h2>{post.title}</h2>
           <p>{post.body}</p>
         </div>
