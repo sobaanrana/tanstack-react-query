@@ -1,69 +1,42 @@
-# React + TypeScript + Vite
+# Features & Concepts Demonstrated
+This project showcases best practices for data fetching, state management, and modern routing in React, using TanStack Query (React Query) and the latest React Router:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Fetching Data with useQuery
+Effortlessly fetch and manage server data using TanStack Query’s useQuery hook. The hook abstracts away loading, error, and caching logic, letting you focus on your UI.
 
-Currently, two official plugins are available:
+## Caching and Stale Time
+Benefit from out-of-the-box caching and automatic re-fetching of stale data. Fine-tune data freshness and background updates using the staleTime and cacheTime options.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+##  Multiple & Parameterized Queries
+Handle multiple concurrent queries with ease, including queries that depend on dynamic parameters (like route params or query strings) for flexible, scalable data access.
 
-## Expanding the ESLint configuration
+##   Mutations with useMutation
+Safely create, update, and delete server data using the useMutation hook. Integrate server changes into your UI instantly, with built-in support for success/error handling.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+##  Optimistic Updates
+Deliver a snappy user experience by immediately updating the UI before the server responds. If a mutation fails, changes are automatically rolled back to keep data consistent.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+##  Pagination & Infinite Queries
+Implement efficient pagination, using React Query’s pagination utilities for seamless user experiences.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## DevTools Integration
+Debug queries, mutations, and cache states visually using the built-in TanStack Query DevTools, streamlining development and troubleshooting.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Latest React Routing v6.4+ (data router)
+Utilize the latest React Router for file-based and data-centric routing patterns:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Nested routes and layouts via <Outlet />
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+*Dynamic route parameters for detail pages
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Programmatic navigation with useNavigate
+
+Route-based UI composition
+
+### todo 
+Loader functions for prefetching 
+
+Action function for mutations (create/update)
+
+
+
