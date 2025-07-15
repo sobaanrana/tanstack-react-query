@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import type { PostType } from "../types";
 import { Link, Outlet } from "react-router-dom";
+import { useState } from "react";
 
-const fetchPosts = async (): Promise<PostType[]> => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+const fetchPosts = async (page: number): Promise<PostType[]> => {
+  const res = await fetch(
+    `https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=10`
+  );
   if (!res.ok) {
     throw new Error("Error fetching data");
   }
@@ -11,10 +14,15 @@ const fetchPosts = async (): Promise<PostType[]> => {
 };
 
 const Post = () => {
-  const { data, isLoading, error } = useQuery<PostType[]>({
-    queryKey: ["posts"],
-    queryFn: fetchPosts,
+  const [page, setPage] = useState(1);
+
+  const { data, isLoading, error, isFetching, isPreviousData } = useQuery<
+    PostType[]
+  >({
+    queryKey: ["posts", page],
+    queryFn: () => fetchPosts(page),
     staleTime: 5000, // 5 seconds
+    keepPreviousData: true, // So previous page data stays during transition
   });
 
   if (isLoading) return <p>Loading...</p>;
@@ -31,6 +39,20 @@ const Post = () => {
           <p>{post.body}</p>
         </Link>
       ))}
+
+      <button
+        onClick={() => setPage((p) => Math.max(p - 1, 1))}
+        disabled={page === 1}
+      >
+        Previous
+      </button>
+      <span>Page {page}</span>
+      <button
+        onClick={() => setPage((p) => p + 1)}
+        disabled={isPreviousData || (data && data.length < 10)}
+      >
+        Next
+      </button>
     </div>
   );
 };

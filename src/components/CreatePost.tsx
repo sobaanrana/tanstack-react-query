@@ -32,8 +32,8 @@ const CreatePost = () => {
 
       const previousPosts = queryClient.getQueryData<PostType[]>(["posts"]);
 
-      // Optimistically update the cache
-      queryClient.setQueryData<PostType[]>(["posts"], (old = []) => [
+      // Optimistically update the cache & showing new post on the first page
+      queryClient.setQueryData<PostType[]>(["posts", 1], (old = []) => [
         { id: Date.now(), ...newPost }, // Fake id!
         ...old,
       ]);
