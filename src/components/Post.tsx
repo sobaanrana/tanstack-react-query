@@ -22,6 +22,7 @@ const Post = () => {
     queryKey: ["posts", page],
     queryFn: () => fetchPosts(page),
     staleTime: 5000, // 5 seconds
+    // cacheTime: 60000, // 1 minute //can be set globally in QueryClientProvider
     keepPreviousData: true, // So previous page data stays during transition
   });
 
