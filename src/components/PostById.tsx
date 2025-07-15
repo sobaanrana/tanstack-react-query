@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "react-router-dom";
 
-const fetchPosts = async (id: string) => {
+const fetchPost = async (id: string) => {
   const response = await fetch(
     `https://jsonplaceholder.typicode.com/posts/${id}`
   );
@@ -14,7 +14,7 @@ const PostById = () => {
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["posts", id], // Include id for caching
-    queryFn: () => fetchPosts(id),
+    queryFn: () => fetchPost(id),
   });
 
   if (isLoading) return <p> Loading...</p>;
